@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Socialite;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -56,8 +57,20 @@ class LoginController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('github')->user();
+        $user = Socialite::driver('github')->stateless()->user();
 
-        // $user->token;
+        
+
+        $create = User::create([
+            'name'      => $user->name,
+            'avatar'    => $user->avatar,
+            'login'     => $user->nickname,
+            'email'     => $user->email,
+            'token'     => $user->token,
+            'bio'       => $user->user['bio'],
+            'refresh_token'   => $user->refreshToken,
+        ]);
+
+        dd($create); exit;
     }
 }
