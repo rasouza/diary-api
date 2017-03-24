@@ -15,7 +15,7 @@ class StoryController extends Controller
     public function index()
     {
         $stories = Story::all();
-        return response()->json([ 'stories' => $stories]);
+        return response()->json($stories);
     }
 
     /**
@@ -36,18 +36,8 @@ class StoryController extends Controller
      */
     public function store(Request $request)
     {
-        $story = new Story();
-        $story->title = $request->input('title');
-        $story->description = $request->input('description');
-        $story->project = $request->input('project');
-        $story->link = $request->input('link');
-        
-        if(is_null($request->input('date')))
-            $story->date = new Date();
-        else
-            $story->date = $request->input('date');
-
-        return response()->json(['story' => $story]);
+        $story = Story::create($request->all());
+        return response()->json($story);
     }
 
     /**
