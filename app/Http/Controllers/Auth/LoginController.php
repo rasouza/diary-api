@@ -47,7 +47,7 @@ class LoginController extends Controller
      */
     public function redirectToProvider()
     {
-        return Socialite::driver('github')->redirect();
+        return Socialite::driver('github')->stateless()->redirect();
     }
 
     /**
@@ -59,18 +59,23 @@ class LoginController extends Controller
     {
         $user = Socialite::driver('github')->stateless()->user();
 
-        
-
-        $create = User::create([
+        $user = User::create([
             'name'      => $user->name,
             'avatar'    => $user->avatar,
             'login'     => $user->nickname,
             'email'     => $user->email,
-            'token'     => $user->token,
             'bio'       => $user->user['bio'],
+            'token'     => $user->token,
             'refresh_token'   => $user->refreshToken,
         ]);
 
-        dd($create); exit;
+        return response()->json([
+            'name'      => $user->name,
+            'avatar'    => $user->avatar,
+            'login'     => $user->nickname,
+            'email'     => $user->email,
+            'bio'       => $user->user['bio'],
+        ]);
+        
     }
 }
