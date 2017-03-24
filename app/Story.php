@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Story extends Model
 {
-    private $_fillable = ['title', 'date', 'description', 'project', 'link'];
+    protected $fillable = ['title', 'date', 'description', 'project', 'link'];
+    protected $dates = ['date'];
 }
