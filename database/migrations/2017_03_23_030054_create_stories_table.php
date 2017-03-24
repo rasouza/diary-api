@@ -16,7 +16,7 @@ class CreateStoriesTable extends Migration
         Schema::create('stories', function(Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->date('date')->default(strtotime('today'));
+            $table->date('date')->default(date('Y-m-d'));
             $table->text('description')->nullable();
             $table->string('link')->nullable();
             $table->string('project')->nullable();
