@@ -15,11 +15,13 @@ class StoryTest extends TestCase
     public function testCreatesOneStory()
     {
         $story = factory(Story::class)->make([
-            'title' => 'Today\'s title'
+            'title' => 'Today\'s title',
+            'date'  => '2017-03-29T01:22:06.827Z'
         ]);
 
         $this->assertInstanceOf(Story::class, $story);
         $this->assertEquals($story->title, 'Today\'s title');
+        $this->assertEquals($story->date, '2017-03-29 01:22:06');
     }
 
     public function testStoreOneStory()
