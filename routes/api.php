@@ -20,4 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('oauth/github', 'Auth\LoginController@redirectToProvider');
 Route::get('oauth/github/callback', 'Auth\LoginController@handleProviderCallback');
 
+Route::post('/github/repos', 'GithubController@repos');
+
 Route::resource('stories', 'StoryController');
