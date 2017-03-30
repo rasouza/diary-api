@@ -57,17 +57,18 @@ class LoginController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('github')->stateless()->user();
+        $github = Socialite::driver('github')->stateless()->user();
 
-        $user = User::create([
-            'name'      => $user->name,
-            'avatar'    => $user->avatar,
-            'login'     => $user->nickname,
-            'email'     => $user->email,
-            'bio'       => $user->user['bio'],
-            'token'     => $user->token,
-            'refresh_token'   => $user->refreshToken,
-        ]);
+        $user = User::firstOrCreate([ 'email' => $github->email ]);
+        if(!$user->exists) {
+            $user->name = $github->name;
+            $user->avatar = $github->avatar;
+            $user->login = $github->nickname;
+            $user->email = $github->email;
+            $user->bio = $github->user['bio'];
+            $user->token = $github->token;
+            $user->save();
+        }
 
         return response()->json($user);
         
