@@ -69,13 +69,7 @@ class LoginController extends Controller
             'refresh_token'   => $user->refreshToken,
         ]);
 
-        return response()->json([
-            'name'      => $user->name,
-            'avatar'    => $user->avatar,
-            'login'     => $user->nickname,
-            'email'     => $user->email,
-            'bio'       => $user->user['bio'],
-        ]);
+        return response()->json($user);
         
     }
 }
