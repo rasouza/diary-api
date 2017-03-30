@@ -9,14 +9,16 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class GithubTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+    
+    public function testHasEnvKey()
+    {
+        $this->assertRegExp("/[A-Za-z0-9]+/", getenv('GITHUB_TOKEN'));
+    }
+
     public function testGetUserRepos()
     {
-        $res = $this->post('/api/github/repos', ['token' => '26a7b35d02ec8f9587506081b257889aedb716d4']);
+        global $argc, $argv;
+        $res = $this->post('/api/github/repos', ['token' => getenv('GITHUB_TOKEN') ]);
         $res->assertJsonStructure([
             '*' => ['name', 'full_name', 'owner', 'url']
         ]);
