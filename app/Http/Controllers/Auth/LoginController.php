@@ -60,17 +60,18 @@ class LoginController extends Controller
         $github = Socialite::driver('github')->stateless()->user();
 
         $user = User::firstOrCreate([ 'email' => $github->email ]);
-        if(!$user->exists) {
-            $user->name = $github->name;
-            $user->avatar = $github->avatar;
-            $user->login = $github->nickname;
-            $user->email = $github->email;
-            $user->bio = $github->user['bio'];
-            $user->token = $github->token;
-            $user->save();
-        }
+        $user->name = $github->name;
+        $user->avatar = $github->avatar;
+        $user->login = $github->nickname;
+        $user->email = $github->email;
+        $user->bio = $github->user['bio'];
+        $user->token = $github->token;
+        $user->save();
 
-        return response()->json($user);
+        if(App::environment('testing'))
+            return response()->json($user);
+
+        return redirect("http://localhost:3000/settings;token={$user->token}");
         
     }
 }
