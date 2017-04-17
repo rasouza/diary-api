@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('oauth/twitter', 'TwitterController@redirectToProvider');
+Route::get('oauth/twitter/callback', 'TwitterController@handleProviderCallback');
+Route::get('oauth/github', 'GithubController@redirectToProvider');
+Route::get('oauth/github/callback', 'GithubController@handleProviderCallback');
