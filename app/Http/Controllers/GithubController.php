@@ -28,7 +28,7 @@ class GithubController extends Controller
      */
     public function redirectToProvider()
     {
-        return Socialite::driver('github')->stateless()->redirect();
+        return Socialite::driver('github')->redirect();
     }
 
     /**
@@ -38,7 +38,7 @@ class GithubController extends Controller
      */
     public function handleProviderCallback()
     {
-        $github = Socialite::driver('github')->stateless()->user();
+        $github = Socialite::driver('github')->user();
 
         $user = User::firstOrNew([ 'email' => $github->email ]);
         $user->name = $github->name;
