@@ -18,7 +18,7 @@ class GithubTest extends TestCase
     public function testGetUserRepos()
     {
         global $argc, $argv;
-        $res = $this->post('/api/github/repos', ['token' => getenv('GITHUB_TOKEN') ]);
+        $res = $this->post('/github/repos', ['token' => getenv('GITHUB_TOKEN') ]);
         $res->assertJsonStructure([
             '*' => ['name', 'full_name', 'owner', 'url']
         ]);
