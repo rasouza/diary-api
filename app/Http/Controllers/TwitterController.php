@@ -15,7 +15,7 @@ class TwitterController extends Controller
             env('TWITTER_CONSUMER_KEY'),
             env('TWITTER_CONSUMER_SECRET'),
             $request->input('token'),
-            $request->input('token_secret')
+            $request->input('token_secret'),
         );
 
         $tweet = $twitter->post('statuses/update', ['status' => $request->input('tweet')]);
@@ -27,7 +27,7 @@ class TwitterController extends Controller
             env('TWITTER_CONSUMER_KEY'),
             env('TWITTER_CONSUMER_SECRET'),
             $request->input('token'),
-            $request->input('token_secret')
+            $request->input('token_secret'),
         );
 
         $user = $twitter->get('account/verify_credentials');
