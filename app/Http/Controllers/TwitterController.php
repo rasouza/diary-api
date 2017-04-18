@@ -65,7 +65,7 @@ class TwitterController extends Controller
             return response()->json($user);
 
         $frontend_url = env('FRONTEND_URL');
-        return redirect("{$frontend_url}/settings;token={$user->token}");
+        return redirect("{$frontend_url}/settings;twitter_token={$user->token};twitter_token_secret={$user->token_secret}");
         
     }
 }
