@@ -38,7 +38,7 @@ return [
     'github' => [
         'client_id' => '29e23ecfc4eec0814fc0',
         'client_secret' => env('GITHUB_SECRET'),
-        'redirect' => env('APP_URL') . '/api/oauth/github/callback',
+        'redirect' => env('APP_URL') . '/oauth/github/callback',
     ],
 
     'twitter' => [
